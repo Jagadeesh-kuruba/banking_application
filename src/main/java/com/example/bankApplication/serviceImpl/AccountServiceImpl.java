@@ -79,5 +79,19 @@ public class AccountServiceImpl implements AccountService {
                     accountDto.getBalance());
         }
     }
+    @Override
+    public String lockOrUnlockAccount(AccountDto accountDto) {
+        if(accountRepository.existsById(accountDto.getAccountNo())){
+            Optional<Account> account= accountRepository.findById(accountDto.getAccountNo());
+            if(account.isPresent()){
+                account.get().setAccountStatus(accountDto.getAccountStatus());
+                return "Account status is changes to"+accountDto.getAccountStatus()+"successfully";
+            }else{
+                return "NO Data Found";
+            }
+        }else{
+            return "Invalid account No";
+        }
+    }
 
 }

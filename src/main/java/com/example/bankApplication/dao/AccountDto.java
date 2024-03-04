@@ -14,4 +14,7 @@ public class AccountDto {
     private String address;
     private String uniqueRefId;
     private double balance;
+    private int mobileNo;
+    private String dob;
+    private String accountStatus;
 }

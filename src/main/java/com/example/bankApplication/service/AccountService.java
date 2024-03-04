@@ -2,7 +2,6 @@ package com.example.bankApplication.service;
 
 import com.example.bankApplication.dao.AccountDto;
 import com.example.bankApplication.dao.DepositDto;
-import com.example.bankApplication.entity.Account;
 
 public interface AccountService {
 
@@ -11,4 +10,6 @@ public interface AccountService {
     public String deleteAccount(long accountNo);
     public AccountDto updateAccountDetails(AccountDto accountDto);
     public DepositDto depositMoney(AccountDto accountDto);
+    public String lockOrUnlockAccount(AccountDto accountDto);
+
 }

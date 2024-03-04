@@ -9,7 +9,10 @@ public class AccountMapper {
                 accountDto.getAccountHolderName(),
                 accountDto.getAddress(),
                 accountDto.getUniqueRefId(),
-                accountDto.getBalance());
+                accountDto.getBalance(),
+                accountDto.getMobileNo(),
+                accountDto.getDob(),
+                accountDto.getAccountStatus());
     }
 
     public static AccountDto mapToAccountDto(Account account){
@@ -17,6 +20,9 @@ public class AccountMapper {
                 account.getAccountHolderName(),
                 account.getAddress(),
                 account.getUniqueRefId(),
-                account.getBalance());
+                account.getBalance(),
+                account.getMobileNo(),
+                account.getDob(),
+                account.getAccountStatus());
     }
 }
