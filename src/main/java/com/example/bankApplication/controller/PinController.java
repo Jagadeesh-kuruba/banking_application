@@ -1,6 +1,7 @@
 package com.example.bankApplication.controller;
 
 import com.example.bankApplication.entity.PinChange;
+import com.example.bankApplication.service.AccountService;
 import com.example.bankApplication.service.PinChangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,10 +12,18 @@ public class PinController {
     @Autowired
     private PinChangeService pinChangeService;
 
+    @Autowired
+    private AccountService accountService;
+
     @PostMapping("/create")
     public String createPin(@RequestBody PinChange pinChange){
         if(pinChange.getAccountNo()>0 && (pinChange.getOldPin()!=null && !pinChange.getOldPin().isEmpty())
           && (pinChange.getNewPin()!=null && !pinChange.getNewPin().isEmpty()) && (pinChange.getConfirmPin()!=null && !pinChange.getConfirmPin().isEmpty()) ){
+
+            if(! accountService.accountStatus(pinChange.getAccountNo())){
+                return "Account id Locked we can't proceed further";
+            }
+
             if(pinChange.getNewPin().equals(pinChange.getConfirmPin())){
                 return pinChangeService.CreatePin(pinChange);
             }else{
@@ -30,6 +39,11 @@ public class PinController {
 
         if(pinChange.getAccountNo()>0 && (pinChange.getOldPin()!=null && !pinChange.getOldPin().isEmpty())
                 && (pinChange.getNewPin()!=null && !pinChange.getNewPin().isEmpty()) && (pinChange.getConfirmPin()!=null && !pinChange.getConfirmPin().isEmpty()) ){
+
+            if(! accountService.accountStatus(pinChange.getAccountNo())){
+                return "Account id Locked we can't proceed further";
+            }
+
             if(pinChange.getNewPin().equals(pinChange.getConfirmPin())){
                 return pinChangeService.changePin(pinChange);
             }else{

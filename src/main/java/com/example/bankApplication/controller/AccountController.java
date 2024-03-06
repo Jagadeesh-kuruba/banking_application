@@ -21,6 +21,9 @@ public class AccountController {
 
     @PutMapping("/update")
     public ResponseEntity<AccountDto> updateActDetails(@RequestBody AccountDto accountDto){
+        if(! accountService.accountStatus(accountDto.getAccountNo())){
+            return new ResponseEntity<>(accountDto,HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(accountService.updateAccountDetails(accountDto),HttpStatus.OK);
     }
 
@@ -35,6 +38,18 @@ public class AccountController {
 
     @PostMapping("/deposit")
     public ResponseEntity<DepositDto> depositMoney(@RequestBody AccountDto accountDto){
+        if(! accountService.accountStatus(accountDto.getAccountNo())){
+            return new ResponseEntity<>(new DepositDto(),HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(accountService.depositMoney(accountDto),HttpStatus.OK);
+    }
+
+    @GetMapping("/getAccount/status/{accountNo}")
+    public ResponseEntity<String> getAccountStatus(@PathVariable long accountNo){
+        if(accountService.accountStatus(accountNo)){
+            return new ResponseEntity<>("Account is Opened",HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Account is Locked",HttpStatus.OK);
+        }
     }
 }

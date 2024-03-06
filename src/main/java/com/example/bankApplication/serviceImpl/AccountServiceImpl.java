@@ -85,6 +85,7 @@ public class AccountServiceImpl implements AccountService {
             Optional<Account> account= accountRepository.findById(accountDto.getAccountNo());
             if(account.isPresent()){
                 account.get().setAccountStatus(accountDto.getAccountStatus());
+                accountRepository.save(account.get());
                 return "Account status is changes to"+accountDto.getAccountStatus()+"successfully";
             }else{
                 return "NO Data Found";
@@ -94,4 +95,21 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
+    @Override
+    public boolean accountStatus(long accountNo) {
+        if (accountRepository.existsById(accountNo)) {
+            Optional<Account> account = accountRepository.findById(accountNo);
+            if (account.isPresent()) {
+                if (account.get().getAccountStatus().equalsIgnoreCase("opened")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

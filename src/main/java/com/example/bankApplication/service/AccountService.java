@@ -11,5 +11,6 @@ public interface AccountService {
     public AccountDto updateAccountDetails(AccountDto accountDto);
     public DepositDto depositMoney(AccountDto accountDto);
     public String lockOrUnlockAccount(AccountDto accountDto);
+    public boolean accountStatus(long accountNo);
 
 }
